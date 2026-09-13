@@ -3,6 +3,7 @@
 # Mantis Website Redesign
 
 Marketing/website project. Deployed on Vercel (project `mantis-website-redesign`).
+GitHub: https://github.com/WaFu1029/MantisBiotechWebsiteRedesign — pushes to `main` auto-deploy to production; other branches/PRs get preview URLs.
 
 ## Stack
 - Next.js 16 (App Router, `src/` dir, Turbopack) + React 19 + TypeScript
