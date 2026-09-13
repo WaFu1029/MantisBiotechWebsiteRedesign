@@ -1,11 +1,5 @@
 type Vec = [number, number];
 
-const ROWS = 72;
-const COLS = 64;
-// Monospace glyph width relative to line height (leading-none).
-const CELL_ASPECT = 0.6;
-const RAMP = " .:-=+*#%@";
-
 function capsule(p: Vec, a: Vec, b: Vec, r: number) {
   const pax = p[0] - a[0];
   const pay = p[1] - a[1];
@@ -28,9 +22,14 @@ function smin(a: number, b: number, k: number) {
   return Math.min(a, b) - h * h * k * 0.25;
 }
 
-// Signed distance to a standing human figure; y runs 0 (top) to 1 (bottom).
-function body(p: Vec) {
-  const m: Vec = [Math.abs(p[0]), p[1]];
+/**
+ * Signed distance to a standing human figure (negative inside).
+ * y runs 0 (top) to 1 (bottom); x is centered on 0 in the same units,
+ * and the figure spans roughly x ∈ [-0.22, 0.22].
+ */
+export function humanSdf(x: number, y: number) {
+  const p: Vec = [x, y];
+  const m: Vec = [Math.abs(x), y];
   let d = ellipse(p, [0, 0.095], 0.052, 0.066); // head
   d = smin(d, capsule(p, [0, 0.15], [0, 0.2], 0.026), 0.02); // neck
   d = smin(d, capsule(m, [0.075, 0.225], [0.075, 0.225], 0.036), 0.03); // shoulders
@@ -45,32 +44,3 @@ function body(p: Vec) {
   d = smin(d, capsule(m, [0.056, 0.945], [0.075, 0.955], 0.016), 0.01); // feet
   return d;
 }
-
-function noise(i: number, j: number) {
-  const s = Math.sin(i * 127.1 + j * 311.7) * 43758.5453;
-  return s - Math.floor(s);
-}
-
-export function renderAsciiHuman() {
-  const lines: string[] = [];
-  for (let r = 0; r < ROWS; r++) {
-    let line = "";
-    for (let c = 0; c < COLS; c++) {
-      const x = ((c + 0.5 - COLS / 2) * CELL_ASPECT) / ROWS;
-      const y = (r + 0.5) / ROWS;
-      const d = body([x, y]);
-      if (d > 0) {
-        line += d < 0.01 && noise(r, c) < 0.35 ? "." : " ";
-        continue;
-      }
-      const depth = Math.min(1, -d / 0.035);
-      const shade = 0.2 + 0.8 * depth + (noise(r, c) - 0.5) * 0.15 - x * 0.6;
-      const clamped = Math.max(0, Math.min(1, shade));
-      line += RAMP[1 + Math.round(clamped * (RAMP.length - 2))];
-    }
-    lines.push(line.trimEnd());
-  }
-  return lines.join("\n");
-}
-
-export const ASCII_HUMAN = renderAsciiHuman();
