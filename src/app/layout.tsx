@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: "Mantis Biotech",
     template: "%s · Mantis Biotech",
   },
-  description: "Mantis Biotech",
+  description: "The last system without a digital twin is the human being.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
