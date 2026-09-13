@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import markBlue from "@/assets/mark-blue.png";
 
 const navLinks = [
   { label: "Vision", href: "/vision" },
@@ -12,7 +13,7 @@ export function SiteHeader() {
     <header className="grid h-14 shrink-0 grid-cols-[1fr_auto_1fr] items-center sm:h-20">
       <Link href="/" className="flex items-center gap-2.5 justify-self-start">
         <Image
-          src="/mark-blue.png"
+          src={markBlue}
           alt=""
           width={32}
           height={32}
