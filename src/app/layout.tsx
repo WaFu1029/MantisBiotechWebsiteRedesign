@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { PixelWordmark } from "@/components/pixel-wordmark";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
@@ -16,9 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Mantis Biotech",
-    template: "%s · Mantis Biotech",
+    template: "%s - Mantis Biotech",
   },
-  description: "We simulate human beings.",
+  description: "Predictive models of human beings.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -28,9 +30,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <div className="flex min-h-dvh flex-col bg-white px-4 pb-4 sm:px-8 sm:pb-8">
+        <div className="flex min-h-dvh flex-col bg-white px-4 sm:px-8">
           <SiteHeader />
           {children}
+        </div>
+        <div className="@container bg-white px-4 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-16">
+          <PixelWordmark />
+          <SiteFooter className="mt-12 sm:mt-16" />
         </div>
       </body>
     </html>

@@ -1,10 +1,18 @@
-export function PlaceholderPage({ title }: { title: string }) {
+export function PlaceholderPage({
+  title,
+  eyebrow,
+}: {
+  title: string;
+  eyebrow?: string;
+}) {
   return (
-    <main className="flex flex-1 flex-col justify-end bg-brand p-6 sm:p-12">
-      <p className="text-sm font-medium tracking-wide text-white/70 uppercase">
-        Coming soon
-      </p>
-      <h1 className="mt-2 text-5xl font-semibold tracking-tight text-white sm:text-7xl">
+    <main className="flex flex-1 flex-col bg-white px-6 pt-10 pb-10 sm:px-12">
+      {eyebrow ? (
+        <p className="text-sm font-medium tracking-wide text-neutral-500 uppercase">
+          {eyebrow}
+        </p>
+      ) : null}
+      <h1 className="mt-2 text-5xl font-semibold tracking-tight text-neutral-950 sm:text-7xl">
         {title}
       </h1>
     </main>

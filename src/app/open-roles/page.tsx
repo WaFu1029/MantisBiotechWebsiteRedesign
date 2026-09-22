@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function OpenRolesPage() {
-  return <PlaceholderPage title="Open Roles" />;
+  return <PlaceholderPage title="Get hired by the end of the week" />;
 }
